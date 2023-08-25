@@ -16,6 +16,15 @@
 // 3 Кнопку для очищення кошика, після натискання на неї всі товари видаляються, а користувача перенаправляємо на сторінку Home
 
 import instruments from './products.json';
-console.log(instruments);
-// import { createMarkup } from './templates/templatePLP';
+
+
+import { createMarkup } from './templates/templatePLP';
+
 // import common from './common.json';
+const selectors = {
+    list: document.querySelector('.js-list')
+}
+
+selectors.list.insertAdjacentHTML('beforeend', createMarkup(instruments))
+console.log(instruments); 
+
