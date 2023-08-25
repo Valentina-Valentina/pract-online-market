@@ -17,5 +17,5 @@
 
 import instruments from './products.json';
 console.log(instruments);
-import { createMarkup } from './templates/templatePLP';
-import common from './common.json';
+// import { createMarkup } from './templates/templatePLP';
+// import common from './common.json';
