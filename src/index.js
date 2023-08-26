@@ -16,15 +16,37 @@
 // 3 Кнопку для очищення кошика, після натискання на неї всі товари видаляються, а користувача перенаправляємо на сторінку Home
 
 import instruments from './products.json';
-
-
 import { createMarkup } from './templates/templatePLP';
+import common from './common.json';
 
-// import common from './common.json';
+const products = JSON.parse(localStorage.getItem(common.LS_PRODUCTS)) ?? [];
 const selectors = {
-    list: document.querySelector('.js-list')
+    list: document.querySelector('.js-list'),
+};
+
+selectors.list.insertAdjacentHTML('beforeend', createMarkup(instruments));
+selectors.list.addEventListener('click', handlerAdd);
+
+function handlerAdd(evt) {
+    if (!evt.target.classList.contains('js-add')) {
+        return; 
+    } 
+ 
+    const product = evt.target.closest('.js-product');
+    const productId = Number(product.dataset.id);
+    const currentProduct = instruments.find(({ id }) => id === productId);
+    const idx = products.findIndex(({ id }) => id === productId);
+    if (idx === -1) {
+        currentProduct.qty = 1;
+        products.push(currentProduct);
+       
+    } else {
+      products[idx].qty += 1;
+    }
+
+    localStorage.setItem(common.LS_PRODUCTS, JSON.stringify(products))  
 }
 
-selectors.list.insertAdjacentHTML('beforeend', createMarkup(instruments))
-console.log(instruments); 
+
+// console.log(instruments); 
 
